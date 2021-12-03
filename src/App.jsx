@@ -1,12 +1,14 @@
-import './styles/global.scss'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import './styles/global.jsx'
+import RepositoryList from './components/RepositoryList'
 
 export default function App() {
 
   return (
     <>
-      <h1>Hello World Alan! Let's code!</h1>
-      <p>We made it. Changed</p>
-      <p>Added SASS/SCSS</p>
+      <CssBaseline />
+
+      <RepositoryList/>
     </>
   )
 }
