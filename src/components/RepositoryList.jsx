@@ -1,10 +1,10 @@
-import React from 'react'
-import { Container , Grid, List, ListItemButton, ListItemText, Typography, Link } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { Container , Grid, List, ListItemButton, ListItemText, Typography, Link, CircularProgress } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import { BoxStyled } from './styles.ts';
-import repoInfo from './data.ts'
 
 const RepositoryList = () => {
+  const [repoInfo, setRepoInfo] = React.useState([]);
   const [selectedIndex, setSelectedIndex] = React.useState(-1);
 
   const handleListItemClick = (event, index) => {
@@ -12,6 +12,12 @@ const RepositoryList = () => {
 
     console.log(event.target.innerText, index)
   };
+
+  useEffect(() => {
+    fetch('https://api.github.com/users/AlanDeveloperEX/repos')
+      .then(response => response.json())
+      .then(data => setRepoInfo(data))
+  }, [])
 
   return (
     <Container>
@@ -23,14 +29,26 @@ const RepositoryList = () => {
         </Grid>
         <Grid container item xs={12} display="flex" justifyContent="center">
           <Typography variant="h5" component="div" gutterBottom color="common.white">
-            Counter Clicked: {(selectedIndex > -1) ? selectedIndex : ''}
+            Index Clicked: {(selectedIndex > -1) ? selectedIndex : 'Anyone'}
           </Typography>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid mb={2} container spacing={2}>
         <Grid item xs={12}>
-          <BoxStyled>
+          <BoxStyled
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%'
+            }}
+          >
             <List component="nav" aria-label="secondary mailbox folder" sx={{
+              flex: '1',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column-reverse',
               '&& .Mui-selected, && .Mui-selected:hover': {
                 bgcolor: '#050a308f',
                 '&, & .MuiListItemIcon-root': {
@@ -44,16 +62,22 @@ const RepositoryList = () => {
                 },
               },
             }}>
-              {repoInfo.map((item, key) => 
+              {(repoInfo.length > 0) ? repoInfo.map((repository, key) => 
                 <ListItemButton
-                  key={item.id}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-around',
+                    width: '100%'
+                  }}
+                  key={repository.id}
                   selected={selectedIndex === key}
                   alignItems="center"
                   onClick={(event) => handleListItemClick(event, key)}
                 >
-                  <ListItemText primary={item.name} />
+                  <ListItemText primary={repository.name} />
                   <Link 
-                    href={item.link} 
+                    href={repository.html_url} 
                     color="inherit" 
                     underline="none" 
                     rel="noreferrer" 
@@ -64,7 +88,7 @@ const RepositoryList = () => {
                     <LinkIcon/>
                   </Link >
                 </ListItemButton>
-              )}
+              ) : <CircularProgress />}
             </List>
           </BoxStyled>
         </Grid>
