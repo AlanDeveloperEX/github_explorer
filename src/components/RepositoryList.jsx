@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Container , Grid, List, ListItemButton, ListItemText, Typography, Link, CircularProgress } from '@material-ui/core';
+import { Container , Grid, List, ListItemButton, ListItemText, Typography, Link, CircularProgress, Box } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
 import { BoxStyled } from './styles.ts';
 

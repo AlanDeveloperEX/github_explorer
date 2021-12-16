@@ -4,6 +4,6 @@ import { styled } from '@mui/system';
 
 export const BoxStyled = styled('div')`
   background-color: var(--baby-blue);
-  border-radius:var(--border-tiny);
+  border-radius: var(--border-tiny);
 `
 
