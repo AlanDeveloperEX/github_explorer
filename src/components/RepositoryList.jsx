@@ -8,7 +8,6 @@ import {
   Typography,
   Link,
   CircularProgress,
-  Box,
 } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
 import { BoxStyled } from "./styles.ts";
@@ -19,8 +18,6 @@ const RepositoryList = () => {
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
-
-    console.log(event.target.innerText, index);
   };
 
   useEffect(() => {
